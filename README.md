@@ -36,7 +36,7 @@ minet ct posts --token $token_crowdtangle --list-ids 1392245 --start-date 2019-0
   --rate-limit 50 --partition-strategy 500 > $OUTPUT_FILE
 ```
 
-### Replicate the [second article](https://medialab.sciencespo.fr/actu/les-infox-sur-le-covid-sous-surveillance/)
+### Replicate the [chronicle's figures](https://medialab.sciencespo.fr/actu/les-infox-sur-le-covid-sous-surveillance/)
 
 To save the two graphs and print a sump-up table:
 ```
