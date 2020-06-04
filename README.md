@@ -17,11 +17,28 @@ pip install -r requirements.txt
 
 ### Collect the CrowdTangle data
 
-You should have a CrowdTangle account and write it in a `config.json` file similar to the `config.json.example` file 
+You should have a CrowdTangle token and write it in a `config.json` file similar to the `config.json.example` file 
 (except that you should write the token value instead of "blablabla").
 
-You should first clean the Science Feedback data, and then do the CrowdTangle request. For example, if you want the fake news about climate change (the second command will take 1-2 hours to run):
+You should also add a list of Facebook groups and add each group manually to the list. You can get all your list ids id with:
 ```
-python ./src/clean_data.py climate 15_05_2020
-./src/minet_requests.sh climate 15_05_2020
+token_crowdtangle=$(jq -r '.token_crowdtangle' config.json)
+minet ct lists --token $token_crowdtangle
+```
+
+To get all the posts of these Facebook groups, you should run with a precise start data:
+```
+DATE="2020_05_19"
+DATA_DIRECTORY="data"
+OUTPUT_FILE="./${DATA_DIRECTORY}/posts_covid_14_groups_${DATE}.csv"
+
+minet ct posts --token $token_crowdtangle --list-ids 1392245 --start-date 2019-09-01 \
+  --rate-limit 50 --partition-strategy 500 > $OUTPUT_FILE
+```
+
+### Replicate the [second article](https://medialab.sciencespo.fr/actu/les-infox-sur-le-covid-sous-surveillance/)
+
+To save the two graphs and print a sump-up table:
+```
+python ./src/plot_temporal_evolution.py
 ```
