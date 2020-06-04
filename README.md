@@ -28,11 +28,11 @@ minet ct lists --token $token_crowdtangle
 
 To get all the posts of these Facebook groups, you should run this:
 ```
-DATE="2020_05_19"
+DATE="2020_06_04"
 DATA_DIRECTORY="data"
-OUTPUT_FILE="./${DATA_DIRECTORY}/posts_covid_14_groups_${DATE}.csv"
+OUTPUT_FILE="./${DATA_DIRECTORY}/posts_groups_${DATE}.csv"
 
-minet ct posts --token $token_crowdtangle --list-ids 1392245 --start-date 2019-09-01 \
+minet ct posts --token $token_crowdtangle --list-ids 1401873 --start-date 2019-09-01 \
   --rate-limit 50 --partition-strategy 500 > $OUTPUT_FILE
 ```
 (Precising a start date is mandatory.)
