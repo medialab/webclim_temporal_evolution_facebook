@@ -1,0 +1,8 @@
+.ipynb_checkpoints
+*.csv
+*.gexf
+*.ipynb
+
+__pycache__/*
+
+*.json
