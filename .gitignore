@@ -6,3 +6,7 @@
 __pycache__/*
 
 *.json
+
+*.png
+!figure/interaction_by_day_2020_05_19.png
+!figure/interaction_by_post_2020_05_19.png

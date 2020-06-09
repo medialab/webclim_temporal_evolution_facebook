@@ -6,10 +6,11 @@ import matplotlib.dates as mdates
 from matplotlib.lines import Line2D
 
 import os
+import sys
 
 
-def import_data(DATA_DIRECTORY):
-    df_path = os.path.join(DATA_DIRECTORY, "posts_covid_14_groups_2020_05_19.csv")
+def import_data(DATA_DIRECTORY, DATE):
+    df_path = os.path.join(DATA_DIRECTORY, "posts_groups_" + DATE + ".csv")
     df = pd.read_csv(df_path)
     return df
 
@@ -30,7 +31,7 @@ def clean_data(df):
     return df
 
 
-def plot_interaction_by_day(df, FIGURE_DIRECTORY):
+def plot_interaction_by_day(df):
 
     plt.figure(figsize=(12, 15))
 
@@ -51,14 +52,9 @@ def plot_interaction_by_day(df, FIGURE_DIRECTORY):
             plt.legend()
 
         plt.title(group)
-    
-    plt.tight_layout()
-    plt.savefig(os.path.join(FIGURE_DIRECTORY, "interaction_by_day.png"))
-    print("The 'interaction_by_day.png' graph has been saved in the '{}' folder."
-            .format(FIGURE_DIRECTORY))
 
 
-def plot_interaction_by_post(df, FIGURE_DIRECTORY):
+def plot_interaction_by_post(df):
 
     plt.figure(figsize=(12, 15))
 
@@ -88,10 +84,12 @@ def plot_interaction_by_post(df, FIGURE_DIRECTORY):
 
         plt.title(group)
 
+
+def save_graph(FIGURE_DIRECTORY, title, DATE):
     plt.tight_layout()
-    plt.savefig(os.path.join(FIGURE_DIRECTORY, "interaction_by_post.png"))
-    print("The 'interaction_by_post.png' graph has been saved in the '{}' folder."
-            .format(FIGURE_DIRECTORY))
+    plt.savefig(os.path.join(FIGURE_DIRECTORY, title + "_" + DATE + ".png"))
+    print("The '{}' graph has been saved in the '{}' folder."
+            .format(title, FIGURE_DIRECTORY))
 
 
 def compute_growth_rate(metric):
@@ -134,13 +132,24 @@ def print_statistics(df):
 
 if __name__ == "__main__":
 
+    if len(sys.argv) >= 2:
+        DATE = sys.argv[1]
+    else:
+        DATE = "2020_05_19"
+        print("The date '{}' has been chosen by default.".format(DATE))
+
     DATA_DIRECTORY = "data"
     FIGURE_DIRECTORY = "figure"
 
-    df = import_data(DATA_DIRECTORY)
+    df = import_data(DATA_DIRECTORY, DATE)
     df = clean_data(df)
-    plot_interaction_by_day(df, FIGURE_DIRECTORY)
-    plot_interaction_by_post(df, FIGURE_DIRECTORY)
+
+    plot_interaction_by_day(df)
+    save_graph(FIGURE_DIRECTORY, "interaction_by_day", DATE)
+
+    plot_interaction_by_post(df)
+    save_graph(FIGURE_DIRECTORY, "interaction_by_post", DATE)
+
     print_statistics(df)
 
 

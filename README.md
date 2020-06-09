@@ -41,5 +41,5 @@ minet ct posts --token $token_crowdtangle --list-ids 1392245 --start-date 2019-0
 
 To save the two graphs and print a sump-up table:
 ```
-python ./src/plot_temporal_evolution.py
+python ./src/plot_temporal_evolution.py 2020_05_19
 ```
